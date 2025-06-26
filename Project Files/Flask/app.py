@@ -2,14 +2,10 @@ from flask import Flask, render_template, request
 import pickle
 import numpy as np
 import os
-
 app = Flask(__name__)
-
-# Load model and scaler using absolute paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
 model_path = os.path.join(base_dir, 'rf_acc_68.pkl')
 scaler_path = os.path.join(base_dir, 'normalizer.pkl')
-
 try:
     model = pickle.load(open(model_path, 'rb'))
     scaler = pickle.load(open(scaler_path, 'rb'))
@@ -17,7 +13,6 @@ except FileNotFoundError as e:
     print(f"❌ File loading error: {e}")
     model = None
     scaler = None
-
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -26,13 +21,12 @@ def home():
 def predict():
     if model is None or scaler is None:
         return render_template('result.html', prediction_text="❌ Model or Scaler file not found.")
-
     try:
-        # Convert gender to numeric (Male=1, Female=0)
+        
         gender_input = request.form['gender'].lower()
         gender = 1 if gender_input == 'male' else 0
 
-        # Extract and prepare features
+       
         features = [
             float(request.form['age']),
             gender,
