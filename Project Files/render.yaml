@@ -2,5 +2,5 @@ services:
   - type: web
     name: smart-interz-liver-prediction
     env: python
-    buildCommand: pip install --upgrade pip wheel setuptools && pip install -r "Project Files/requirements.txt"
-    startCommand: gunicorn "Project Files.Flask.app:app"
+    buildCommand: pip install --upgrade pip wheel setuptools && pip install -r requirements.txt
+    startCommand: gunicorn liver_app.app:app
