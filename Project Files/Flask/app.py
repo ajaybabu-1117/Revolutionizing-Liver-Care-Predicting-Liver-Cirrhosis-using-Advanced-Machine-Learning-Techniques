@@ -39,7 +39,6 @@ def predict():
             return render_template('result.html', prediction_text="❌ Please enter gender as 'male' or 'female'.")
         gender = 1 if gender_input == 'male' else 0
 
-        # Extract and format features
         features = [
             float(request.form['age']),
             gender,
@@ -64,6 +63,7 @@ def predict():
         logging.error(f"❌ Prediction error: {str(e)}")
         return render_template('result.html', prediction_text=f"❌ Error: {str(e)}")
 
+# Bind to dynamic PORT provided by Render
 if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=False, host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
